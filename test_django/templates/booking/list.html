@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Последние бронирования:{% endblock %}
+
+{% block content %}
+
+	{% if latest_booking_list %}
+
+		{% for a in latest_booking_list %}
+			<a href="{% url 'booking:detail' a.id %}">{{a.booking_title}}</a>
+		{% endfor %}
+
+	{% else %}
+		Бронирования не найдены
+	{% endif %}
+
+{% endblock %}

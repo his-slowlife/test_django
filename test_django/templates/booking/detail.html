@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}{{booking.booking_title}}{% endblock %}
+
+{% block content %}
+<h2>{{booking.booking_title}}</h2>
+
+<p>{{booking.booking_text}}</p>
+
+<em>{{booking.pub_date}}</em>
+
+{% if booking.was_published_recently %}
+Последние бронирования:
+{% endif %}
+
+<hr>
+
+{% if latest_comments_list %}
+	
+	{% for c in latest_comments_list %}
+		<p>
+			<strong>{{c.author_name}}</strong>
+			<p>{{c.comment_text}}</p>
+		</p>
+		{% endfor %}
+
+{% else %}
+Бронирования не найдены! Станьте первым
+{% endif %}
+
+<hr>
+
+<form action="{% url 'booking:leave_comment' booking.id%}" method="POST">
+	
+	{% csrf_token %}
+
+	<input type="text" required placeholder="Ваше имя" name="name"><br>
+	<textarea name="text" required="" placeholder="Пожелания" cols="30"></textarea><br>
+
+	<label for="booking">Дата:</label>
+	<input type="text" required placeholder="2020-12-21" name="booking_date_input"><br>
+	
+
+	<label for="booking">Время бронирования:</label>
+
+	<input type="text" required placeholder="12:00:00" name="booking_time_input">
+	<label for="booking">Длительность бронирования:</label>
+	<input type="text" required placeholder="4" name="booking_hours"><br>
+    
+    
+
+
+	<small>Время работы с 9:00:00 до 18:00</small>
+
+	<button type="submit">Забронировать</button>
+</form>
+
+
+{% endblock %}
