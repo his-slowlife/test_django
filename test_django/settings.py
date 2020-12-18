@@ -12,12 +12,16 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os, sys
+import dj-database-url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 PROJECT_ROOT = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
+
+db_from_env = dj-database-url.config()
+DATABASE['default'].update(db_from_env)
 
 
 # Quick-start development settings - unsuitable for production
@@ -29,7 +33,7 @@ SECRET_KEY = '0nb&k+)t%q643#9+65!pqwn2oy^151@yjo*r190pvbj8l=a9&a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
